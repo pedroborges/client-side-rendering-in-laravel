@@ -13,7 +13,7 @@ export default ({ event }) => {
     const submit = e => {
         e.preventDefault()
 
-        axios.post(`/events`, data).then(() => {
+        fetch.post(`/events`, data).then(() => {
             window.peedo.visit(`/events`)
         })
     }
