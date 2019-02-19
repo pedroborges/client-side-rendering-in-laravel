@@ -1,6 +1,6 @@
-import { h } from "superfine"
+import { h } from 'superfine'
 
-import Layout from './Layout'
+import Layout from '../Layout'
 
 export default props =>
     <Layout title="Events">

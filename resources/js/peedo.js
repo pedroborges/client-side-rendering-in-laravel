@@ -20,7 +20,7 @@ export default function (customEvents) {
     let pathname = location.pathname
 
     const peedo = {
-        defaultRender: function(html) {
+        defaultRender: html => {
             this.resetScroll()
             this.replaceBody(html)
             this.replaceTitle(html)
@@ -31,6 +31,7 @@ export default function (customEvents) {
         },
         replaceTitle: html => document.title = html.title,
         resetScroll: () => window.scrollTo(0, 0),
+        visit: path => { visit(path); navigate() }
     }
 
     const get = (url, next) => {
@@ -58,10 +59,12 @@ export default function (customEvents) {
 
         if (isFunction(events.visit)) events.visit(pathname)
 
-        if (cache[pathname]) return render()
+        // if (cache[pathname]) return render()
 
         get(pathname, content => render(content))
     }
+
+    const visit = path => window.history.pushState(null, null, path)
 
     const onLinkClick = e => {
         if (e.metaKey || e.shiftKey || e.ctrlKey || e.altKey || e.button) return
@@ -70,7 +73,7 @@ export default function (customEvents) {
 
         if (link && link.host === location.host) {
             e.preventDefault()
-            window.history.pushState(null, null, link.pathname)
+            visit(link.pathname)
             navigate()
         }
     }
@@ -78,7 +81,8 @@ export default function (customEvents) {
     const parseHtml = html => (new window.DOMParser).parseFromString(html, 'text/html')
 
     const render = content => {
-        let html = cache[pathname] = cache[pathname] || parseHtml(content)
+        // let html = cache[pathname] = cache[pathname] || parseHtml(content)
+        let html = parseHtml(content)
 
         if (isFunction(events.render)) {
             events.render(html)

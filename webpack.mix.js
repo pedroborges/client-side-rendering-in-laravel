@@ -1,5 +1,7 @@
 const mix = require('laravel-mix');
 
+require('laravel-mix-purgecss');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,6 +15,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
+   .purgeCss()
    .extract([
        'superfine',
        'axios'

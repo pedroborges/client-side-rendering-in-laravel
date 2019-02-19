@@ -1,27 +1,22 @@
 import { h, patch } from 'superfine'
+import render from './render'
+import Peedo from './peedo'
 
-// Register all the Vue components
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-import Dashboard from './Components/Dashboard'
-import Events from './Components/Events'
-
-const components = { Dashboard, Events }
-
-// Start Turbolinks
-require('turbolinks').start()
+let data = document.body.dataset
 
 // Boot the Vue component
-document.addEventListener('turbolinks:load', (event) => {
-    const body = document.body
-    const root = document.getElementById('app')
+window.peedo = Peedo({
+    render(html) {
+        peedo.resetScroll()
 
-    const view = ({ component, props }) =>
-        h(components[component], props)
-
-    patch(null, view({
-        component: body.dataset.component,
-        props: JSON.parse(body.dataset.props),
-    }), root)
+        const newData = html.body.dataset
+        data.component = newData.component
+        data.props = newData.props
+    },
+    load() {
+        render({
+            component: data.component,
+            props: JSON.parse(data.props),
+        })
+    }
 })
