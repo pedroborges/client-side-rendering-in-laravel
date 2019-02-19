@@ -1,4 +1,4 @@
-import { h } from 'superfine'
+import { h } from 'preact'
 
 import Layout from '../Layout'
 

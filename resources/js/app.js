@@ -1,4 +1,3 @@
-import { h, patch } from 'superfine'
 import render from './render'
 import Peedo from './peedo'
 

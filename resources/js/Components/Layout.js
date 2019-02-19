@@ -1,16 +1,27 @@
-import { h } from 'superfine'
+import { h, Component } from 'preact'
 
-export default props => {
-    const updateTitle = () =>
-        document.title = props.title ? `${props.title} | Example app` : `Example app`
+export default class extends Component {
+    updateTitle(title) {
+        document.title = title ? `${title} | Example app` : `Example app`
+    }
 
-    return <div class="container" oncreate={updateTitle} onupdate={updateTitle}>
-        <nav class="my-5">
-            <a class="mr-3" href="/">Dashboard</a>
-            <a href="/events">Events</a>
-        </nav>
-        <main>
-            {props.children}
-        </main>
-    </div>
+    componentDidMount() {
+        this.updateTitle(this.props.title)
+    }
+
+    componentDidUpdate({ title }) {
+        this.updateTitle(title)
+    }
+
+    render({ children }) {
+        return <div class="container">
+            <nav class="my-5">
+                <a class="mr-3" href="/">Dashboard</a>
+                <a href="/events">Events</a>
+            </nav>
+            <main>
+                {children}
+            </main>
+        </div>
+    }
 }
