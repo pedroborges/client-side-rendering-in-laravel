@@ -8,9 +8,9 @@
     <script src="{{ mix('/js/app.js') }}" defer></script>
     <meta name="turbolinks-cache-control" content="no-cache">
 </head>
-<body>
+<body data-component="{{ $name }}" data-props="{{ json_encode($data) }}">
 
-<div id="app" data-component="{{ $name }}" data-props="{{ json_encode($data) }}"></div>
+<div id="app"></div>
 
 </body>
 </html>

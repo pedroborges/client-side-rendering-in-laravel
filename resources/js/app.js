@@ -14,31 +14,14 @@ require('turbolinks').start()
 
 // Boot the Vue component
 document.addEventListener('turbolinks:load', (event) => {
+    const body = document.body
     const root = document.getElementById('app')
 
     const view = ({ component, props }) =>
         h(components[component], props)
 
-    const app = (view, container, node) => state => {
-        node = patch(node, view(state), container)
-    }
-
-    const render = app(view, root)
-
-    render({
-        component: root.dataset.component,
-        props: JSON.parse(root.dataset.props),
-    })
-
-    // if (window.vue) {
-    //     window.vue.$destroy(true)
-    // }
-
-    // window.vue = new Vue({
-    //     render: h => h(
-    //         Vue.component(root.dataset.component), {
-    //             props: JSON.parse(root.dataset.props)
-    //         }
-    //     )
-    // }).$mount(root)
+    patch(null, view({
+        component: body.dataset.component,
+        props: JSON.parse(body.dataset.props),
+    }), root)
 })
