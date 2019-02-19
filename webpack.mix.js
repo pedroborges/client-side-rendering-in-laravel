@@ -16,8 +16,7 @@ require('laravel-mix-purgecss');
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .purgeCss()
-   .extract([
-       'superfine',
-       'axios'
-    ])
-   .version()
+
+if (mix.inProduction()) {
+    mix.version();
+}
