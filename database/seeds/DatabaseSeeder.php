@@ -31,6 +31,6 @@ class DatabaseSeeder extends Seeder
             'description' => 'Laracon VII is coming and tickets are first come, first serve. Sign up to get notified when tickets are available!',
         ]);
 
-        factory(Event::class, 500)->create();
+        factory(Event::class, 10000)->create();
     }
 }

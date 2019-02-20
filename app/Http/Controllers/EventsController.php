@@ -10,11 +10,13 @@ class EventsController extends Controller
 {
     public function index()
     {
-        $events = Event::oldest('start_date')
-            ->get()
-            ->map->only('id', 'title', 'start_date');
+        $events = cache()->rememberForever('events', function() {
+            $events = Event::oldest('start_date')
+                ->get()
+                ->map->only('id', 'title', 'start_date');
+        });
 
-        return View::component('Events', ['events' => $events]);
+        return View::component('Events', compact('events'));
     }
 
     public function create()
