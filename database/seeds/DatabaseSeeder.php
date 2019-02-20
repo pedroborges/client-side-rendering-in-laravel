@@ -30,5 +30,7 @@ class DatabaseSeeder extends Seeder
             'start_date' => Carbon::parse('July 24, 2019'),
             'description' => 'Laracon VII is coming and tickets are first come, first serve. Sign up to get notified when tickets are available!',
         ]);
+
+        factory(Event::class, 500)->create();
     }
 }
